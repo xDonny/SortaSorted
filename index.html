@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Sorta Sort - Donny Bridgen
+	</title>
+</head>
+<body>
+	<div>
+		Amount:<input type="text" id="amount" value=500 />
+		Speed(ms):<input type="text" id="speed" value=50 />
+		<button onclick="sort(tempSortable,'bubble')">Bubble sort</button>
+		<button onclick="sort(tempSortable,'shell')">Shell sort</button>
+		<button onclick="randomize()">Randomize</button>
+		Lines?<input onclick="setLines()" type="checkbox" checked id="lines" />
+	</div>
+	<canvas id="sortCanvas" style="width:100%;">
+	</canvas>
+	<script src='Sort.js'></script>
+	<script>
+	
+		var canvas = document.getElementById('sortCanvas');
+		var ctx = canvas.getContext('2d');
+		
+		canvas.width=1000;
+		canvas.height=472;
+		
+		function drawArray(){
+			ctx.fillStyle = '#000';
+			ctx.fillRect(0,0,canvas.width,canvas.height);
+			
+			ctx.fillStyle = '#FFF';
+			ctx.fillText('Type: ' + sortType ,100,100);
+			
+			for (var i = 0; i < tempSortable.length; i++){
+				ctx.fillStyle = '#' + tempSortable[i].toString(16) + tempSortable[i].toString(16) + tempSortable[i].toString(16);
+				
+				if (lines)
+					ctx.fillRect(i * (canvas.width/tempSortable.length),canvas.height - (canvas.height / (tempSortable.length/tempSortable[i])) ,(canvas.width/tempSortable.length),canvas.height / (tempSortable.length/tempSortable[i]));
+				else
+					ctx.fillRect(i * (canvas.width/tempSortable.length),canvas.height - (canvas.height / (tempSortable.length/tempSortable[i])) ,(canvas.width/tempSortable.length),(canvas.width/tempSortable.length));
+			}
+		}
+		
+		setInterval(function(){drawArray()},50);
+	</script>
+</body>
+</html>
